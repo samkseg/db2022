@@ -7,9 +7,9 @@ Inlämningsuppgift
 erDiagram
     Student ||--|{ StudentSchool : enrolls
     School ||--|{ StudentSchool : accepts
-    Student ||--|{ StudentHobby : practices
+    Student ||--|{ StudentHobby : has
     Hobby ||--|{ StudentHobby : of
-    Student ||--|{ Phone : registers
+    Student ||--|{ Phone : owns
        
 
     Hobby {
@@ -27,7 +27,7 @@ erDiagram
 
     StudentHobby {
 	  int StudentId
- 	  int HobbyId
+	  string Category 
     }
 
     StudentSchool {
