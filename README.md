@@ -6,9 +6,11 @@ Inlämningsuppgift
 ```mermaid
 erDiagram
     Student ||--|{ StudentSchool : enrolls
-    Student ||--|{ Hobby : has
-    Student ||--|{ Phone : owns
-    School ||--|{ StudentSchool : accepts    
+    School ||--|{ StudentSchool : accepts
+    Student ||--|{ StudentHobby : practices
+    Hobby ||--|{ StudentHobby : of
+    Student ||--|{ Phone : registers
+       
 
     Hobby {
     	int Hobbyid
@@ -21,6 +23,11 @@ erDiagram
 	int StudentId
 	string Type
 	string Number
+    }
+
+    StudentHobby {
+	  int StudentId
+ 	  int HobbyId
     }
 
     StudentSchool {
