@@ -107,4 +107,4 @@ INSERT INTO StudentHobby (StudentId, Category)
 	WHERE Hobbies IS NOT NULL AND Hobbies != '';
 
 DROP VIEW IF EXISTS HobbyList;
-CREATE VIEW HobbyList2 AS SELECT Id AS StudentId, FirstName, LastName, group_concat(Category) FROM Student Join StudentHobby ON Id = StudentId GROUP BY StudentId;
+CREATE VIEW HobbyList AS SELECT Id AS StudentId, FirstName, LastName, group_concat(Category) FROM Student Join StudentHobby ON Id = StudentId GROUP BY StudentId;
