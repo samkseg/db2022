@@ -49,17 +49,16 @@ CREATE TABLE Phone (
 ) ENGINE=INNODB;
 
 INSERT INTO Phone(StudentId, Type, Number) 
-SELECT Id As StudentId, "Home" AS Type, HomePhone as Number FROM UNF
-WHERE HomePhone IS NOT NULL AND HomePhone != ''
-UNION SELECT Id As StudentId, "Job" AS Type, JobPhone as Number FROM UNF
-WHERE JobPhone IS NOT NULL AND JobPhone != ''
-UNION SELECT Id As StudentId, "Mobile" AS Type, MobilePhone1 as Number FROM UNF
-WHERE MobilePhone1 IS NOT NULL AND MobilePhone1 != ''
-UNION SELECT Id As StudentId, "Mobile" AS Type, MobilePhone2 as Number FROM UNF
-WHERE MobilePhone2 IS NOT NULL AND MobilePhone2 != ''
-;
-DROP VIEW IF EXISTS PhoneList;
+	SELECT Id As StudentId, "Home" AS Type, HomePhone as Number FROM UNF
+	WHERE HomePhone IS NOT NULL AND HomePhone != ''
+	UNION SELECT Id As StudentId, "Job" AS Type, JobPhone as Number FROM UNF
+	WHERE JobPhone IS NOT NULL AND JobPhone != ''
+	UNION SELECT Id As StudentId, "Mobile" AS Type, MobilePhone1 as Number FROM UNF
+	WHERE MobilePhone1 IS NOT NULL AND MobilePhone1 != ''
+	UNION SELECT Id As StudentId, "Mobile" AS Type, MobilePhone2 as Number FROM UNF
+	WHERE MobilePhone2 IS NOT NULL AND MobilePhone2 != '';
 
+DROP VIEW IF EXISTS PhoneList;
 CREATE VIEW PhoneList AS SELECT StudentId, group_concat(Number) FROM Phone GROUP BY StudentId;
 
 CREATE TABLE School (
@@ -81,23 +80,33 @@ ALTER TABLE StudentSchool ADD PRIMARY KEY (StudentId, SchoolId);
 DROP TABLE IF EXISTS Hobby;
 CREATE TABLE Hobby (
 	HobbyId INT NOT NULL AUTO_INCREMENT,
-	StudentId INT NOT NULL,
 	Category VARCHAR(32) NOT NULL,
 	CONSTRAINT PRIMARY KEY (HobbyId)
 ) ENGINE=INNODB;
 
-INSERT INTO Hobby (StudentId, Category)
-SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
-WHERE Hobbies IS NOT NULL AND Hobbies != ''
-UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
-WHERE Hobbies IS NOT NULL AND Hobbies != ''
-UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
-WHERE Hobbies IS NOT NULL AND Hobbies != '';
+INSERT INTO Hobby (Category)
+	SELECT trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
+	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	UNION SELECT trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
+	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	UNION SELECT trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
+	WHERE Hobbies IS NOT NULL AND Hobbies != '';
 
 DROP TABLE IF EXISTS StudentHobby;
-CREATE TABLE StudentHobby AS SELECT DISTINCT StudentId, HobbyId FROM Hobby;
-ALTER TABLE StudentHobby MODIFY COLUMN StudentId INT;
-ALTER TABLE StudentHobby ADD PRIMARY KEY (StudentId, HobbyId);
+CREATE TABLE StudentHobby (
+	HobbyId INT NOT NULL AUTO_INCREMENT,
+	StudentId INT NOT NULL,
+	Category VARCHAR(32) NOT NULL,
+	CONSTRAINT PRIMARY KEY (HobbyId, StudentId)
+) ENGINE=INNODB;
+
+INSERT INTO StudentHobby (StudentId, Category)
+	SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
+	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
+	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
+	WHERE Hobbies IS NOT NULL AND Hobbies != '';
 
 DROP VIEW IF EXISTS HobbyList;
-CREATE VIEW HobbyList AS SELECT StudentId, group_concat(Category) FROM Hobby GROUP BY StudentId;
+CREATE VIEW HobbyList AS SELECT StudentId, group_concat(Category) FROM StudentHobby GROUP BY StudentId;
