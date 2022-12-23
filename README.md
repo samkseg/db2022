@@ -2,6 +2,8 @@
 Inlämningsuppgift
 
 ## Entity Relationship Diagram
+
+```mermaid
 erDiagram
     Student ||--|{ StudentSchool : enrolls
     Student ||--|{ Hobby : has
@@ -37,4 +39,8 @@ erDiagram
         string Name
         string City
     }
+```
 
+## Cardinality
+
+![Cardinality](cardinality-1.png)
