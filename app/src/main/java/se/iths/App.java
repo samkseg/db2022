@@ -12,8 +12,6 @@ import java.util.Collection;
 
 @SpringBootApplication
 public class App {
-
-    private static final Collection<Artist> artists = new ArrayList<>();
     private static final String JDBC_CONNECTION = "jdbc:mysql://localhost:3306/Chinook";
     private static final String JDBC_USER = "iths";
     private static final String JDBC_PASSWORD = "iths";
@@ -21,6 +19,19 @@ public class App {
     private static final String SQL_COL_ARTIST_ID = "ArtistId";
     private static final String SQL_COL_ARTIST_NAME = "Name";
     public static void main(String[] args) throws SQLException {
+        App app = new App();
+        app.load();
+    }
+
+    private void load() {
+        Collection<Artist> artists = loadArtists();
+        for(Artist artist : artists){
+            System.out.println(artist);
+        }
+    }
+
+    private Collection<Artist> loadArtists() {
+        Collection<Artist> artists = new ArrayList<>();
         Connection con = null;
         ResultSet rs = null;
         try {
@@ -41,8 +52,6 @@ public class App {
                 con.close();
             } catch (Exception ignore) {}
         }
-        for(Artist artist : artists) {
-            System.out.println(artist);
-        }
+        return artists;
     }
 }
