@@ -9,15 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import static se.iths.Constants.*;
 
 @SpringBootApplication
 public class App {
-    private static final String JDBC_CONNECTION = "jdbc:mysql://localhost:3306/Chinook";
-    private static final String JDBC_USER = "iths";
-    private static final String JDBC_PASSWORD = "iths";
-    private static final String SQL_SELECT_ALL_ARTISTS = "SELECT ArtistId, Name FROM Artist";
-    private static final String SQL_COL_ARTIST_ID = "ArtistId";
-    private static final String SQL_COL_ARTIST_NAME = "Name";
     public static void main(String[] args) throws SQLException {
         App app = new App();
         app.load();
