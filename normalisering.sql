@@ -78,40 +78,26 @@ CREATE TABLE StudentSchool AS SELECT Id AS StudentId, SchoolId FROM UNF JOIN Sch
 ALTER TABLE StudentSchool MODIFY COLUMN StudentId INT;
 ALTER TABLE StudentSchool ADD PRIMARY KEY (StudentId, SchoolId);
 
-DROP TABLE IF EXISTS HobbyTemp;
-CREATE TABLE HobbyTemp (
-	HobbyId INT NOT NULL AUTO_INCREMENT,
-	StudentId INT NOT NULL,
-	Category VARCHAR(32),
-	CONSTRAINT PRIMARY KEY (HobbyId)
-) ENGINE=INNODB;
-
-INSERT INTO HobbyTemp (StudentId, Category)
-SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
-WHERE Hobbies IS NOT NULL AND Hobbies != ''
-UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(SUBSTRING_INDEX(HOBBIES, ',', -2), ',', 1)) AS Category FROM UNF
-WHERE Hobbies IS NOT NULL AND Hobbies != ''
-UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
-WHERE Hobbies IS NOT NULL AND Hobbies != '';
-
 DROP TABLE IF EXISTS Hobby;
 CREATE TABLE Hobby (
 	HobbyId INT NOT NULL AUTO_INCREMENT,
+	StudentId INT NOT NULL,
 	Category VARCHAR(32) NOT NULL,
 	CONSTRAINT PRIMARY KEY (HobbyId)
 ) ENGINE=INNODB;
 
-
-INSERT INTO Hobby (Category)
-SELECT trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
+INSERT INTO Hobby (StudentId, Category)
+SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
 WHERE Hobbies IS NOT NULL AND Hobbies != ''
-UNION SELECT trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
+UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
 WHERE Hobbies IS NOT NULL AND Hobbies != ''
-UNION SELECT trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
+UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
 WHERE Hobbies IS NOT NULL AND Hobbies != '';
 
 DROP TABLE IF EXISTS StudentHobby;
-CREATE TABLE StudentHobby AS SELECT StudentId, Hobby.HobbyId FROM HobbyTemp JOIN Hobby ON HobbyTemp.Category = Hobby.Category;
-DROP TABLE IF EXISTS HobbyTemp;
+CREATE TABLE StudentHobby AS SELECT DISTINCT StudentId, HobbyId FROM Hobby;
 ALTER TABLE StudentHobby MODIFY COLUMN StudentId INT;
 ALTER TABLE StudentHobby ADD PRIMARY KEY (StudentId, HobbyId);
+
+DROP VIEW IF EXISTS HobbyList;
+CREATE VIEW HobbyList AS SELECT StudentId, group_concat(Category) FROM Hobby GROUP BY StudentId;
