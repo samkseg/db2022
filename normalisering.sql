@@ -86,11 +86,11 @@ CREATE TABLE Hobby (
 
 INSERT INTO Hobby (Category)
 	SELECT trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
-	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing'
 	UNION SELECT trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
-	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing'
 	UNION SELECT trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
-	WHERE Hobbies IS NOT NULL AND Hobbies != '';
+	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing';
 
 DROP TABLE IF EXISTS StudentHobby;
 CREATE TABLE StudentHobby (
@@ -100,11 +100,11 @@ CREATE TABLE StudentHobby (
 
 INSERT INTO StudentHobby (StudentId, Category)
 	SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', 1)) AS Category FROM UNF
-	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing'
 	UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(SUBSTRING_INDEX(Hobbies, ',', -2), ',', 1)) AS Category FROM UNF
-	WHERE Hobbies IS NOT NULL AND Hobbies != ''
+	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing'
 	UNION SELECT Id AS StudentId, trim(SUBSTRING_INDEX(Hobbies, ',', -1)) AS Category FROM UNF
-	WHERE Hobbies IS NOT NULL AND Hobbies != '';
+	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing';
 
 DROP VIEW IF EXISTS HobbyList;
 CREATE VIEW HobbyList AS SELECT Id AS StudentId, FirstName, LastName, group_concat(Category) FROM Student Join StudentHobby ON Id = StudentId GROUP BY StudentId;
