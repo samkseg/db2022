@@ -14,6 +14,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
 }
 
 tasks.named('test') {
