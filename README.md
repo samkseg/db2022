@@ -7,14 +7,14 @@ Inlämningsuppgift
 erDiagram
     Student ||--|{ StudentSchool : enrolls
     Student ||--|{ Hobby : has
-    Student ||--|{ Phone : registers
-    School ||--|{ StudentSchool : accepts
-    
+    Student ||--|{ Phone : owns
+    School ||--|{ StudentSchool : accepts    
 
     Hobby {
     	int Hobbyid
 	int StudentId
 	string Category
+    }
 
     Phone {
     	int PhoneId
