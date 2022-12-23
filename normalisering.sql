@@ -94,10 +94,8 @@ INSERT INTO Hobby (Category)
 
 DROP TABLE IF EXISTS StudentHobby;
 CREATE TABLE StudentHobby (
-	HobbyId INT NOT NULL AUTO_INCREMENT,
 	StudentId INT NOT NULL,
-	Category VARCHAR(32) NOT NULL,
-	CONSTRAINT PRIMARY KEY (HobbyId, StudentId)
+	Category VARCHAR(32) NOT NULL
 ) ENGINE=INNODB;
 
 INSERT INTO StudentHobby (StudentId, Category)
