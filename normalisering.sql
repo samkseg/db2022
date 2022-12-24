@@ -57,7 +57,7 @@ INSERT INTO Phone(StudentId, Type, Number)
 	WHERE MobilePhone2 IS NOT NULL AND MobilePhone2 != '';
 
 DROP VIEW IF EXISTS PhoneList;
-CREATE VIEW PhoneList AS SELECT StudentId, group_concat(Number) FROM Phone GROUP BY StudentId;
+CREATE VIEW PhoneList AS SELECT Id AS StudentId, FirstName, LastName, group_concat(Number) FROM Student JOIN Phone ON Id = StudentId GROUP BY StudentId;
 
 DROP TABLE IF EXISTS School;
 CREATE TABLE School (
@@ -104,4 +104,4 @@ INSERT INTO StudentHobby (StudentId, Category)
 	WHERE Hobbies IS NOT NULL AND Hobbies != '' AND Hobbies != 'Nothing';
 
 DROP VIEW IF EXISTS HobbyList;
-CREATE VIEW HobbyList AS SELECT Id AS StudentId, FirstName, LastName, group_concat(Category) FROM Student Join StudentHobby ON Id = StudentId GROUP BY StudentId;
+CREATE VIEW HobbyList AS SELECT Id AS StudentId, FirstName, LastName, group_concat(Category) FROM Student JOIN StudentHobby ON Id = StudentId GROUP BY StudentId;
