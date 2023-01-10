@@ -8,14 +8,13 @@ erDiagram
     Student ||--|{ StudentSchool : enrolls
     School ||--|{ StudentSchool : accepts
     Student ||--|{ StudentHobby : has
-    Hobby ||--|{ StudentHobby : of
-    Student ||--|{ Phone : owns
+    Hobby ||--|{ StudentHobby : involves
+    Student ||--|{ Phone : has
        
 
     Hobby {
     	int Hobbyid
-	int StudentId
-	string Category
+	string Name
     }
 
     Phone {
@@ -27,7 +26,7 @@ erDiagram
 
     StudentHobby {
 	  int StudentId
-	  string Category 
+	  int HobbyId 
     }
 
     StudentSchool {
