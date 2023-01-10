@@ -1,5 +1,5 @@
 # db2022-inl
-Inlämningsuppgift
+Assignment for course in Database development
 
 ## Entity Relationship Diagram
 
