@@ -70,9 +70,16 @@ CREATE TABLE School (
 INSERT INTO School(Name, City) SELECT DISTINCT School, City FROM UNF;
 
 DROP TABLE IF EXISTS StudentSchool;
-CREATE TABLE StudentSchool AS SELECT Id AS StudentId, SchoolId FROM UNF JOIN School ON UNF.School = School.Name;
-ALTER TABLE StudentSchool MODIFY COLUMN StudentId INT;
-ALTER TABLE StudentSchool ADD PRIMARY KEY (StudentId, SchoolId);
+CREATE TABLE StudentSchool (
+	StudentId INT NOT NULL,
+	SchoolId INT NOT NULL,
+	CONSTRAINT PRIMARY KEY (StudentId, SchoolId)
+) ENGINE=INNODB;
+
+INSERT INTO StudentSchool
+	SELECT Id AS StudentId, SchoolId FROM UNF
+	JOIN School ON UNF.School = School.Name;
+
 
 DROP TABLE IF EXISTS Hobby;
 CREATE TABLE Hobby (
