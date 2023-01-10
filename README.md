@@ -10,6 +10,7 @@ erDiagram
     Student ||--|{ StudentHobby : has
     Hobby ||--|{ StudentHobby : involves
     Student ||--|{ Phone : has
+    Student }|--o| Grade : has
        
 
     Hobby {
@@ -44,6 +45,11 @@ erDiagram
         int SchoolId
         string Name
         string City
+    }
+
+    Grade {
+        int GradeId
+        string name
     }
 ```
 
