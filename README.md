@@ -49,7 +49,7 @@ erDiagram
 
     Grade {
         int GradeId
-        string name
+        string Name
     }
 ```
 
