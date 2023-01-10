@@ -5,11 +5,11 @@ Assignment for course in Database development
 
 ```mermaid
 erDiagram
-    Student ||--|{ StudentSchool : enrolls
-    School ||--|{ StudentSchool : accepts
+    Student ||--o{ StudentSchool : enrolls
+    School ||--o{ StudentSchool : accepts
     Student ||--o{ StudentHobby : has
-    Hobby ||--|{ StudentHobby : involves
-    Student ||--|{ Phone : has
+    Hobby ||--o{ StudentHobby : involves
+    Student ||--o{ Phone : has
     Student }|--o| Grade : has
        
 
