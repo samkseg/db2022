@@ -7,7 +7,7 @@ Assignment for course in Database development
 erDiagram
     Student ||--|{ StudentSchool : enrolls
     School ||--|{ StudentSchool : accepts
-    Student ||--|{ StudentHobby : has
+    Student ||--o{ StudentHobby : has
     Hobby ||--|{ StudentHobby : involves
     Student ||--|{ Phone : has
     Student }|--o| Grade : has
