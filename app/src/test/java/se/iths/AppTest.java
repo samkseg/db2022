@@ -55,4 +55,19 @@ class AppTest {
         rs.close();
         stat.close();
     }
+
+    @Order(3)
+    @Test
+    void updateRowInDataBase() throws Exception {
+        PreparedStatement stat = con.prepareStatement("UPDATE User SET ROLE = ? WHERE ID = ?");
+        stat.setString(1, TEST_NEWROLE);
+        stat.setLong(2, actualId);
+        stat.execute();
+
+        stat = con.prepareStatement("SELECT Role FROM User WHERE ID = ?");
+        stat.setLong(1, actualId);
+        ResultSet rs = stat.executeQuery();
+        assertTrue(rs.next(), "Should find one row!");
+        assertTrue(TEST_NEWROLE.equalsIgnoreCase(rs.getString("Role")), "Update role should match");
+    }
 }
