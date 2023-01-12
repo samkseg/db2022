@@ -68,6 +68,16 @@ class AppTest {
         stat.setLong(1, actualId);
         ResultSet rs = stat.executeQuery();
         assertTrue(rs.next(), "Should find one row!");
-        assertTrue(TEST_NEWROLE.equalsIgnoreCase(rs.getString("Role")), "Update role should match");
+        assertTrue(TEST_NEWROLE.equalsIgnoreCase(rs.getString("Role")), "Update role should match!");
+    }
+
+    @Order(4)
+    @Test
+    void deleteRowInDatabase() throws Exception {
+        con.createStatement().execute("DELETE FROM User");
+        Statement stat = con.createStatement();
+        ResultSet rs = stat.executeQuery("SELECT count(*) FROM User");
+        assertTrue(rs.next(), "Should find one row with count!");
+        assertEquals(0, rs.getInt(1), "Table should be empty!");
     }
 }
