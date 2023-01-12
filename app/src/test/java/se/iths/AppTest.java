@@ -16,7 +16,7 @@ class AppTest {
     public static void setUp() throws Exception {
         con = DriverManager.getConnection(JDBC_CONNECTION, JDBC_USER, JDBC_PASSWORD);
         con.createStatement().execute("DROP TABLE IF EXISTS User");
-        con.createStatement().execute("CREATE TABLE User (Id INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL), ROLE VARCHAR(255) NOT NULL, CONSTRAINT PRIMARY KEY (Id))");
+        con.createStatement().execute("CREATE TABLE User (Id INT NOT NULL AUTO_INCREMENT, Name VARCHAR(255) NOT NULL, ROLE VARCHAR(255) NOT NULL, CONSTRAINT PRIMARY KEY (Id))");
     }
 
     @AfterAll
