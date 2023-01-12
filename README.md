@@ -39,6 +39,7 @@ erDiagram
         int StudentId
         string FirstName
         string LastName
+	int GradeId
     }
 
     School {
