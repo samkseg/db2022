@@ -41,4 +41,18 @@ class AppTest {
         actualId = rs.getLong(1);
         assertEquals(expectedId, actualId, "Should have correct id after insert!");
     }
+
+    @Order(2)
+    @Test
+    void findRowInDatabase() throws Exception {
+        PreparedStatement stat = con.prepareStatement("SELECT Id, Name, Role FROM User WHERE Id = ?");
+        stat.setLong(1, actualId);
+        ResultSet rs = stat.executeQuery();
+        assertTrue(rs.next(), "Should find one row!");
+        assertEquals(actualId, rs.getLong("Id"), "Selected id should match!");
+        assertTrue(TEST_USER.equalsIgnoreCase(rs.getString("Name")), "Selected user should match!");
+        assertTrue(TEST_ROLE.equalsIgnoreCase(rs.getString("Role")), "Selected role should match!");
+        rs.close();
+        stat.close();
+    }
 }
