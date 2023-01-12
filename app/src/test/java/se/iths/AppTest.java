@@ -10,6 +10,10 @@ class AppTest {
     private static final String JDBC_CONNECTION = "jdbc:mysql://localhost:3306/iths";
     private static final String JDBC_USER = "iths";
     private static final String JDBC_PASSWORD = "iths";
+    private static final String TEST_USER = "Nisse Karlsson";
+    private static final String TEST_ROLE = "Admin";
+    private static final String TEST_NEWROLE = "User";
+    private static long actualId;
     public static Connection con = null;
 
     @BeforeAll
@@ -22,5 +26,19 @@ class AppTest {
     @AfterAll
     public static void tearDown() throws Exception {
         con.close();
+    }
+
+    @Order(1)
+    @Test
+    void createRowInDatabase() throws Exception {
+        PreparedStatement stat = con.prepareStatement("INSERT INTO User (Name, Role) VALUES (?, ?)",Statement.RETURN_GENERATED_KEYS);
+        stat.setString(1, TEST_USER);
+        stat.setString(2, TEST_ROLE);
+        stat.execute();
+        ResultSet rs = stat.getGeneratedKeys();
+        assertTrue(rs.next(), "Should have a row with generated id!");
+        final long expectedId = 1L;
+        actualId = rs.getLong(1);
+        assertEquals(expectedId, actualId, "Should have correct id after insert!");
     }
 }
