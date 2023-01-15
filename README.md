@@ -61,8 +61,9 @@ erDiagram
 ## Clone repository
 1. cd ~
 2. mkdir ws
-3. git clone https://github.com/samkseg/db2022-inl
-4. cd db2022-inl
+3. cd ws
+4. git clone https://github.com/samkseg/db2022-inl
+5. cd db2022-inl
 
 ## Instructions for ORM application
 1. Run MYSQL in Docker container
