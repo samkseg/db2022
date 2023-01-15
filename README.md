@@ -67,12 +67,11 @@ erDiagram
 
 ## Instructions for ORM application
 1. Run MYSQL in Docker container
-2. GRANT ALL PRIVILEGES ON \*.\* to 'iths'@'%';
-3. docker exec -i iths-mysql mysql -uiths -piths < db_auto.sql
+2. docker exec -i iths-mysql mysql -uroot -proot < db_auto.sql
+3. docker exec -i iths-mysql mysql -uroot -proot <<< "GRANT ALL PRIVILEGES ON \*.\* to 'iths'@'%';"
 4. gradle run
 
 ## Instructions for normalizing script
 1. Run MYSQL in Docker container
-2. GRANT ALL PRIVILEGES ON \*.\* to 'iths'@'%';
-3. docker cp denormalized-data.csv container-with-mysql:/var/lib/mysql-files
-4. docker exec -i iths-mysql mysql -uiths -piths < normalisering.sql
+2. docker cp denormalized-data.csv container-with-mysql:/var/lib/mysql-files
+3. docker exec -i iths-mysql mysql -uroot -prootlisering.sql < normalisering.sql
