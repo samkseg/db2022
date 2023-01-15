@@ -74,4 +74,4 @@ erDiagram
 ## Instructions for normalizing script
 1. Run MYSQL in Docker container
 2. docker cp denormalized-data.csv iths-mysql:/var/lib/mysql-files
-3. docker exec -i iths-mysql mysql -uroot -prootlisering.sql < normalisering.sql
+3. docker exec -i iths-mysql mysql -uroot -proot < normalisering.sql
