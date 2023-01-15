@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import static se.iths.Constants.*;
 
-@SpringBootApplication
+
 public class App {
     public static void main(String[] args) throws SQLException {
         App app = new App();

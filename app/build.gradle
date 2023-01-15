@@ -1,4 +1,5 @@
 plugins {
+    id 'application'
     id 'java'
     id 'org.springframework.boot' version '2.6.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -15,6 +16,11 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.31'
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'se.iths.App'
 }
 
 tasks.named('test') {
