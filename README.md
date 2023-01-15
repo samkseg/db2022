@@ -66,12 +66,12 @@ erDiagram
 5. cd db2022-inl
 
 ## Instructions for ORM application
-1. Run MYSQL in Docker container
+1. Run MYSQL server named iths-mysql in Docker container
 2. docker exec -i iths-mysql mysql -uroot -proot < db_auto.sql
 3. docker exec -i iths-mysql mysql -uroot -proot <<< "GRANT ALL PRIVILEGES ON \*.\* to 'iths'@'%';"
 4. gradle run
 
 ## Instructions for normalizing script
 1. Run MYSQL in Docker container
-2. docker cp denormalized-data.csv container-with-mysql:/var/lib/mysql-files
+2. docker cp denormalized-data.csv iths-mysql:/var/lib/mysql-files
 3. docker exec -i iths-mysql mysql -uroot -prootlisering.sql < normalisering.sql
