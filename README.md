@@ -54,10 +54,6 @@ erDiagram
     }
 ```
 
-## Cardinality
-
-![Cardinality](cardinality-1.png)
-
 ## Clone repository
 1. cd ~
 2. mkdir ws
