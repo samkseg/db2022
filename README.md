@@ -1,5 +1,9 @@
-# db2022-inl
+# Database Development
 Assignment for course in Database development
+
+## Description
+1. Create a script for normalizing data in SQL using a docker MySQL container.
+2. Implement a CRUD application with JDBC.
 
 ## Entity Relationship Diagram
 
